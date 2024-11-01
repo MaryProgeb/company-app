@@ -1,0 +1,112 @@
+[
+  {
+    "model": "companies.company",
+    "pk": 1,
+    "fields": {
+      "name": "SWEDBANK AS",
+      "code": 10060701,
+      "date_established": "1996-11-06",
+      "capital": 85000000
+    }
+  },
+  {
+    "model": "companies.company",
+    "pk": 2,
+    "fields": {
+      "name": "SEB PANK AS",
+      "code": 10004252,
+      "date_established": "1995-08-12",
+      "capital": 42541115
+    }
+  },
+  {
+    "model": "companies.company",
+    "pk": 3,
+    "fields": {
+      "name": "LHV PANK AS",
+      "code": 10539549,
+      "date_established": "1999-02-03",
+      "capital": 141500000
+    }
+  },
+  {
+    "model": "companies.person",
+    "pk": 1,
+    "fields": {
+      "name": "Bill Gates",
+      "code": "31111111111"
+    }
+  },
+  {
+    "model": "companies.person",
+    "pk": 2,
+    "fields": {
+      "name": "Elon Musk",
+      "code": "31111111112"
+    }
+  },
+  {
+    "model": "companies.person",
+    "pk": 3,
+    "fields": {
+      "name": "Bernard Arnault",
+      "code": "31111111113"
+    }
+  },
+  {
+    "model": "companies.person",
+    "pk": 4,
+    "fields": {
+      "name": "Mark Zuckerberg",
+      "code": "31111111114"
+    }
+  },
+  {
+    "model": "companies.shareholder",
+    "pk": 1,
+    "fields": {
+      "type": "PERSON",
+      "person": 1,
+      "company": null,
+      "target_company": 1,
+      "target_company_share": 85000000,
+      "is_founder": true
+    }
+  },
+  {
+    "model": "companies.shareholder",
+    "pk": 2,
+    "fields": {
+      "type": "COMPANY",
+      "person": null,
+      "company": 1,
+      "target_company": 2,
+      "target_company_share": 42541115,
+      "is_founder": true
+    }
+  },
+  {
+    "model": "companies.shareholder",
+    "pk": 3,
+    "fields": {
+      "type": "PERSON",
+      "person": 4,
+      "company": null,
+      "target_company": 3,
+      "target_company_share": 70750000,
+      "is_founder": true
+    }
+  },
+  {
+    "model": "companies.shareholder",
+    "pk": 4,
+    "fields": {
+      "type": "COMPANY",
+      "person": null,
+      "company": 1,
+      "target_company": 3,
+      "target_company_share": 70750000,
+      "is_founder": true
+    }
+  }
+]
