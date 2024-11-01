@@ -106,6 +106,7 @@ export default function Company() {
         setErrors(error.response.data);
       });
   };
+
   const handleAutocomplete = (data, index) => {
     const shareholdersCopy = [...shareholders]
     shareholdersCopy[index]["id"] = data.id
