@@ -1,5 +1,6 @@
 services:
   db:
+    container_name: company-app-db
     image: postgres:17.0
     ports:
       - 5432:5432
@@ -11,6 +12,7 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST}
 
   backend:
+    container_name: company-app-backend
     build:
       context: ./backend
     ports:
@@ -21,6 +23,7 @@ services:
       - db
 
   frontend:
+    container_name: company-app-frontend
     build:
       context: ./frontend
     ports:
