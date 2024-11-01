@@ -57,7 +57,12 @@ export default function Company() {
   const handleShareholdersInput = (event, index) => {
     event.preventDefault();
     const { name, value } = event.target;
+
     const shareholdersCopy = [...shareholders]
+    if (name == "type") {
+      shareholdersCopy[index]["id"] = null
+      shareholdersCopy[index]["name"] = null
+    }
     shareholdersCopy[index][name] = value
     setShareholders([...shareholdersCopy])
   };
