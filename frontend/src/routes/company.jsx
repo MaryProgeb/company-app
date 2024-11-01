@@ -235,9 +235,9 @@ export default function Company() {
                         label="Otsi ja vali ripploendist"
                       />
                       {shareholder.type == "PERSON" ? (
-                        <p>Näiteks Bill Gates, Elon Musk</p>
+                        <p>Näiteks Bill Gates, Elon Musk või isikukood</p>
                       ) : (
-                        <p>Näiteks Swedbank, LHV</p>
+                        <p>Näiteks Swedbank, LHV või registrikood</p>
                       )}
                     </Col>
                     <Col>
