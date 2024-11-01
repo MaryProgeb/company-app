@@ -3,7 +3,7 @@ from datetime import datetime, date, timedelta
 
 from django.test import TestCase
 
-from .models import Company, Person
+from .models import Company, Person, Shareholder
 from rest_framework import status
 from rest_framework.test import APIClient
 from unittest import mock
@@ -122,3 +122,69 @@ class CompaniesAPITestCase(TestCase):
                 }
             ]
         }, resp)
+
+    def test_search(self):
+        companyA = Company.objects.create(name="Company A", code=11111111, date_established = datetime.now())
+        companyB = Company.objects.create(name="Company B", code=22222222, date_established = datetime.now())
+        person_john = Person.objects.create(name="John Doe", code="36407040660")
+        person_jane = Person.objects.create(name="Jane Doe", code="48409050330")
+        Shareholder.objects.create(
+            type="PERSON",
+            person=person_john,
+            target_company=companyA,
+            target_company_share=companyA.capital
+            )
+        Shareholder.objects.create(
+            type="PERSON",
+            person=person_jane,
+            target_company=companyB,
+            target_company_share=companyB.capital
+            )
+
+        with self.subTest("Test search by a company name fragment"):
+            query = "ompany A"
+            response = self.client.get(f"/companies/search/?q={query}")
+            resp = response.json()
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual([{
+                "pk": companyA.pk,
+                "name": companyA.name,
+                "code": companyA.code,
+            }], resp)
+
+        with self.subTest("Test search by a company code fragment"):
+            query = "2222"
+            response = self.client.get(f"/companies/search/?q={query}")
+            resp = response.json()
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual([{
+                "pk": companyB.pk,
+                "name": companyB.name,
+                "code": companyB.code,
+            }], resp)
+
+        with self.subTest("Test search by a shareholder name fragment"):
+            query = "John"
+            response = self.client.get(f"/companies/search/?q={query}")
+            resp = response.json()
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual([{
+                "pk": companyA.pk,
+                "name": companyA.name,
+                "code": companyA.code,
+            }], resp)
+
+        with self.subTest("Test search by a shareholder code fragment"):
+            query = "4840905"
+            response = self.client.get(f"/companies/search/?q={query}")
+            resp = response.json()
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual([{
+                "pk": companyB.pk,
+                "name": companyB.name,
+                "code": companyB.code,
+            }], resp)
